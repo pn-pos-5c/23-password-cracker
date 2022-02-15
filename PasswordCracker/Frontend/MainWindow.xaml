@@ -5,8 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Frontend"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="400">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
 
+        <Label Name="lbl_hubConnection" Grid.Column="1" Grid.ColumnSpan="3" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="DarkRed"></Label>
+        <Label Grid.Row="1" Grid.Column="1">Password-Hash:</Label>
+        <Label Grid.Row="2" Grid.Column="1">Alphabet:</Label>
+        <Label Grid.Row="3" Grid.Column="1">Length:</Label>
+        <TextBox Name="txt_pwHash" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"></TextBox>
+        <TextBox Name="txt_alphabet" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"></TextBox>
+        <TextBox Name="txt_length" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"></TextBox>
+        <Button Grid.Row="4" Grid.Column="2" Click="Button_Click">Crack password</Button>
+        <ProgressBar Name="progressBar" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"></ProgressBar>
+        <Label Name="lbl_result" Grid.Row="6" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="32">???</Label>
     </Grid>
 </Window>

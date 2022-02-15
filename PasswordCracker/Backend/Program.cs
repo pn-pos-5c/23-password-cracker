@@ -1,6 +1,21 @@
+using Backend;
+using Backend.Services;
+
+string corsKey = "_myCorsKey";
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(corsKey, x => x.SetIsOriginAllowed(_ => true)
+    .AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+});
+
 // Add services to the container.
+builder.Services.AddSingleton<PasswordHub>();
+builder.Services.AddSignalR();
+builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
+builder.Services.AddScoped<PasswordService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -16,10 +31,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
+app.UseCors(corsKey);
+// app.UseHttpsRedirection();
+app.UseRouting();
 app.UseAuthorization();
-
+app.UseEndpoints(endpoints => endpoints.MapHub<PasswordHub>("/PasswordCracker"));
+app.UseMvc();
 app.MapControllers();
-
 app.Run();
